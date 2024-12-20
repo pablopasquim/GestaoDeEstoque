@@ -15,10 +15,16 @@ namespace GestãoDeEstoque
             produtos = new List<Produto>();
         }
 
-        public void AdicionarProduto(Produto produto)
+        public void AdicionarProduto(Produto produto, int id)
         {
+
+            if (produtos.Exists(p => p.Id == produto.Id))
+            {
+                throw new InvalidOperationException($"Produto com ID {produto.Id} já está cadastrado.");
+            }
+
             produtos.Add(produto);
-            Console.WriteLine("Produto adicionado com sucesso!");
+            Console.WriteLine($"Produto {produto.Nome} adicionado com sucesso!");
         }
 
         public void RemoverProduto(int id)
@@ -31,7 +37,7 @@ namespace GestãoDeEstoque
             }
 
             produtos.Remove(produto);
-            Console.WriteLine("Produto removido com sucesso!");
+            Console.WriteLine($"Produto {produto.Nome} removido com sucesso!");
         }
 
         public void ExibirProdutos()

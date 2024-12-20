@@ -34,10 +34,7 @@ public class Program
                         Console.Write("ID: ");
                         int id = int.Parse(Console.ReadLine());
 
-                        if (estoque.ProdutoExiste(id))
-                        {
-                            throw new Exception($"Erro: O ID {id} já está cadastrado no sistema.");
-                        }
+                        
 
                         Console.Write("Nome: ");
                         string nome = Console.ReadLine();
@@ -45,21 +42,26 @@ public class Program
                         Console.Write("Quantidade: ");
                         int quantidade = int.Parse(Console.ReadLine());
 
+                        if(quantidade < 0)
+                        {
+                            throw new Exception("Quantidade não pode ser menor que zero!");
+                        }
+
                         Console.Write("Preço Unitário: ");
                         decimal precoUnitario = decimal.Parse(Console.ReadLine());
 
                         Produto produto = new Produto(id, nome, quantidade, precoUnitario);
                         estoque.AdicionarProduto(produto);
                     }
+
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadLine();
                     break;
 
                 case 2:
+
                     try
                     {
                         Console.Clear();
@@ -72,23 +74,20 @@ public class Program
                     {
                         Console.WriteLine(ex.Message);
                     }
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadLine();
+                    
                     break;
 
                 case 3:
                     Console.Clear();
                     estoque.ExibirProdutos();
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadLine();
+                  
                     break;
 
                 case 4:
                     Console.Clear();
                     decimal valorTotal = estoque.CalcularValorTotal();
                     Console.WriteLine($"Valor total em estoque: {valorTotal:C}");
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadLine();
+                   
                     break;
 
                 case 5:
@@ -101,6 +100,12 @@ public class Program
                     Console.ReadLine();
                     break;
             }
+
+            if(continuar == true)
+            {
+               Console.WriteLine("Pressione qualquer tecla para continuar...");
+               Console.ReadLine();
+            }  
         }
     }
 }
