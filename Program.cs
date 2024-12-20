@@ -34,7 +34,10 @@ public class Program
                         Console.Write("ID: ");
                         int id = int.Parse(Console.ReadLine());
 
-                        
+                        if (estoque.ProdutoExiste(id))
+                        {
+                            throw new Exception($"Erro: O ID {id} já está cadastrado no sistema.");
+                        }
 
                         Console.Write("Nome: ");
                         string nome = Console.ReadLine();
@@ -42,52 +45,78 @@ public class Program
                         Console.Write("Quantidade: ");
                         int quantidade = int.Parse(Console.ReadLine());
 
-                        if(quantidade < 0)
+                        if (quantidade <= 0)
                         {
-                            throw new Exception("Quantidade não pode ser menor que zero!");
+                            throw new Exception("Erro: A quantidade deve ser maior que zero.");
                         }
 
                         Console.Write("Preço Unitário: ");
                         decimal precoUnitario = decimal.Parse(Console.ReadLine());
 
+                        if (precoUnitario <= 0)
+                        {
+                            throw new Exception("Erro: O preço unitário deve ser maior que zero.");
+                        }
+
                         Produto produto = new Produto(id, nome, quantidade, precoUnitario);
                         estoque.AdicionarProduto(produto);
-                    }
 
+                        Console.WriteLine("Produto adicionado com sucesso!");
+                    }
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
+
+                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                    Console.ReadLine();
                     break;
 
                 case 2:
-
                     try
                     {
                         Console.Clear();
                         Console.Write("Digite o ID do produto a ser removido: ");
-                        int id = int.Parse(Console.ReadLine());
+                        int removeId = int.Parse(Console.ReadLine());
 
-                        estoque.RemoverProduto(id);
+                        estoque.RemoverProduto(removeId);
+                        Console.WriteLine("Produto removido com sucesso!");
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
-                    
+
+                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                    Console.ReadLine();
                     break;
 
                 case 3:
                     Console.Clear();
-                    estoque.ExibirProdutos();
-                  
+                    Console.Write("Escolha uma opção: ");
+                    Console.WriteLine("1- Exibir todos os produtos");
+                    Console.WriteLine("2- Exibir produto por ID");
+                    Console.Write("Digite sua opção: ");
+
+                    int exibirOpcao = int.Parse(Console.ReadLine());
+
+                    if (exibirOpcao == 1)
+                    {
+                        estoque.ExibirProdutos();
+                    }
+                    else if (exibirOpcao == 2)
+                    {
+                        Console.Write("Digite o ID do produto: ");
+                        int filtroId = int.Parse(Console.ReadLine());
+                        estoque.FiltrarProdutoPorId(filtroId);
+                    }
+
                     break;
 
                 case 4:
                     Console.Clear();
                     decimal valorTotal = estoque.CalcularValorTotal();
                     Console.WriteLine($"Valor total em estoque: {valorTotal:C}");
-                   
                     break;
 
                 case 5:
@@ -101,11 +130,11 @@ public class Program
                     break;
             }
 
-            if(continuar == true)
+            if (continuar)
             {
-               Console.WriteLine("Pressione qualquer tecla para continuar...");
-               Console.ReadLine();
-            }  
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadLine();
+            }
         }
     }
 }

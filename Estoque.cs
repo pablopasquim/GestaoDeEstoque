@@ -15,25 +15,22 @@ namespace GestãoDeEstoque
             produtos = new List<Produto>();
         }
 
-        public void AdicionarProduto(Produto produto, int id)
+        public void AdicionarProduto(Produto produto)
         {
-
-            if (produtos.Exists(p => p.Id == produto.Id))
-            {
-                throw new InvalidOperationException($"Produto com ID {produto.Id} já está cadastrado.");
-            }
-
             produtos.Add(produto);
+            Console.WriteLine("Produto adicionado com sucesso!");
             Console.WriteLine($"Produto {produto.Nome} adicionado com sucesso!");
         }
 
+
         public void RemoverProduto(int id)
         {
+
             var produto = produtos.FirstOrDefault(p => p.Id == id);
 
             if (produto == null)
             {
-                throw new Exception($"Erro: Produto com ID {id} não encontrado.");
+                throw new Exception($"Erro: Produto com ID {id} não encontrado");
             }
 
             produtos.Remove(produto);
@@ -48,11 +45,32 @@ namespace GestãoDeEstoque
                 return;
             }
 
-            Console.WriteLine("Produtos em Estoque:");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine($"{"ID",-5} | {"Nome",-20} | {"Quantidade",-10} | {"Preço Unitário",-15}");
+            Console.WriteLine("-------------------------------------------------------------");
+
             foreach (var produto in produtos)
             {
                 Console.WriteLine(produto);
             }
+
+            Console.WriteLine("-------------------------------------------------------------");
+
+        }
+
+        public void FiltrarProdutoPorId(int id)
+        {
+            var produto = produtos.FirstOrDefault(p => p.Id == id);
+
+            if(produto == null)
+            {
+                throw new Exception($"Erro: Produto com {id} não encontrado");
+            }
+
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine($"{"ID",-5} | {"Nome",-20} | {"Quantidade",-10} | {"Preço Unitário",-15}");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine(produto);
         }
 
         public decimal CalcularValorTotal()

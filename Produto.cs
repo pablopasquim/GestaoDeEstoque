@@ -23,7 +23,7 @@ namespace GestãoDeEstoque
 
         public override string ToString()
         {
-            return $"ID: {Id}, Nome: {Nome}, Quantidade: {Quantidade}, Preço Unitário: {PrecoUnitario:C}";
+            return $"{Id,-5} | {Nome,-15} | {Quantidade,-12} | {PrecoUnitario,-15:C}";
         }
     }
 }
