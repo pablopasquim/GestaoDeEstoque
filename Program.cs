@@ -61,15 +61,12 @@ public class Program
                         Produto produto = new Produto(id, nome, quantidade, precoUnitario);
                         estoque.AdicionarProduto(produto);
 
-                        Console.WriteLine("Produto adicionado com sucesso!");
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
 
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadLine();
                     break;
 
                 case 2:
@@ -77,7 +74,12 @@ public class Program
                     {
                         Console.Clear();
                         Console.Write("Digite o ID do produto a ser removido: ");
-                        int removeId = int.Parse(Console.ReadLine());
+
+                        if (!int.TryParse(Console.ReadLine(), out int removeId))
+                        {
+                            Console.WriteLine("Erro: O ID deve ser um número válido.");
+                            break;
+                        }
 
                         estoque.RemoverProduto(removeId);
                         Console.WriteLine("Produto removido com sucesso!");
@@ -86,10 +88,8 @@ public class Program
                     {
                         Console.WriteLine(ex.Message);
                     }
-
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadLine();
                     break;
+
 
                 case 3:
                     Console.Clear();

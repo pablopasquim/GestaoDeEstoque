@@ -18,14 +18,12 @@ namespace GestãoDeEstoque
         public void AdicionarProduto(Produto produto)
         {
             produtos.Add(produto);
-            Console.WriteLine("Produto adicionado com sucesso!");
             Console.WriteLine($"Produto {produto.Nome} adicionado com sucesso!");
         }
 
 
         public void RemoverProduto(int id)
         {
-
             var produto = produtos.FirstOrDefault(p => p.Id == id);
 
             if (produto == null)
@@ -34,9 +32,7 @@ namespace GestãoDeEstoque
             }
 
             produtos.Remove(produto);
-            Console.WriteLine($"Produto {produto.Nome} removido com sucesso!");
         }
-
         public void ExibirProdutos()
         {
             if (!produtos.Any())
