@@ -82,7 +82,7 @@ public class Program
                         }
 
                         estoque.RemoverProduto(removeId);
-                        Console.WriteLine("Produto removido com sucesso!");
+                   
                     }
                     catch (Exception ex)
                     {

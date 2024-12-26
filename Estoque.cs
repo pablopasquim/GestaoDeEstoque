@@ -32,6 +32,7 @@ namespace GestãoDeEstoque
             }
 
             produtos.Remove(produto);
+            Console.WriteLine($"Produto {produto.Nome} removido com sucesso!");
         }
         public void ExibirProdutos()
         {
