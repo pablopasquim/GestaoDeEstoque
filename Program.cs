@@ -17,7 +17,8 @@ public class Program
             Console.WriteLine("2- Remover Produto");
             Console.WriteLine("3- Exibir Estoque");
             Console.WriteLine("4- Valor Total em Estoque");
-            Console.WriteLine("5- Sair");
+            Console.WriteLine("5- Alterar Produto");
+            Console.WriteLine("0- Sair");
             Console.WriteLine("---------------------------------");
 
             Console.Write("Digite sua opção: ");
@@ -70,12 +71,12 @@ public class Program
                     break;
 
                 case 2:
-                    try
-                    {
+                    
                         Console.Clear();
                         Console.Write("Digite o ID do produto a ser removido: ");
+                        int removeId = int.Parse(Console.ReadLine());
 
-                        if (!int.TryParse(Console.ReadLine(), out int removeId))
+                        if (removeId == null)
                         {
                             Console.WriteLine("Erro: O ID deve ser um número válido.");
                             break;
@@ -83,17 +84,13 @@ public class Program
 
                         estoque.RemoverProduto(removeId);
                    
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
+                   
                     break;
 
 
                 case 3:
                     Console.Clear();
-                    Console.Write("Escolha uma opção: ");
+                    Console.WriteLine("Escolha uma opção: ");
                     Console.WriteLine("1- Exibir todos os produtos");
                     Console.WriteLine("2- Exibir produto por ID");
                     Console.Write("Digite sua opção: ");
@@ -120,6 +117,27 @@ public class Program
                     break;
 
                 case 5:
+
+                    Console.WriteLine("Produtos disponíveis:");
+                    estoque.ExibirProdutos();
+
+                    Console.Write("\nDigite o ID do produto a ser alterado: ");
+                    int alterarId = int.Parse(Console.ReadLine());
+
+                    Console.Write("\nDigite o novo nome do produto: ");
+                    string novoNome = Console.ReadLine();
+
+                    Console.Write("Digite a nova quantidade do produto: ");
+                    int novaQuantidade = int.Parse(Console.ReadLine());
+
+                    Console.Write("Digite o novo preço do produto: ");
+                    decimal novoPreco = decimal.Parse(Console.ReadLine());
+
+                    estoque.AlterarProduto(alterarId, novoNome, novaQuantidade, novoPreco);
+
+                    break;
+
+                case 0:
                     Console.WriteLine("Saindo...");
                     continuar = false;
                     break;

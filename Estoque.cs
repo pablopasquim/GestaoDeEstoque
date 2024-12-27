@@ -24,7 +24,7 @@ namespace GestãoDeEstoque
 
         public void RemoverProduto(int id)
         {
-            var produto = produtos.FirstOrDefault(p => p.Id == id);
+            Produto produto = produtos.FirstOrDefault(p => p.Id == id);
 
             if (produto == null)
             {
@@ -34,6 +34,25 @@ namespace GestãoDeEstoque
             produtos.Remove(produto);
             Console.WriteLine($"Produto {produto.Nome} removido com sucesso!");
         }
+
+        public void AlterarProduto(int id, string novoNome, int novaQuantidade, decimal novoPreco)
+        {
+            Produto produto = produtos.FirstOrDefault(p => p.Id == id);
+
+            if (produto == null)
+            {
+                Console.WriteLine($"\nProduto com o ID {id} não encontrado!");
+                return;
+            }
+
+            produto.Nome = novoNome;
+            produto.Quantidade = novaQuantidade;
+            produto.PrecoUnitario = novoPreco;
+
+            Console.WriteLine($"\nProduto com o ID {produto.Id} alterado com sucesso!");
+        }
+
+
         public void ExibirProdutos()
         {
             if (!produtos.Any())
@@ -68,6 +87,7 @@ namespace GestãoDeEstoque
             Console.WriteLine($"{"ID",-5} | {"Nome",-20} | {"Quantidade",-10} | {"Preço Unitário",-15}");
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine(produto);
+            Console.WriteLine("-------------------------------------------------------------");
         }
 
         public decimal CalcularValorTotal()
